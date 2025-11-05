@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maanaim Card</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <main class="container" id="mainContainer" aria-busy="false">
+    <div class="content-area" id="panel">
+      <h1>Maanaim Card</h1>
+
+      <div id="formContent" data-testid="form">
+        <form id="recargaForm">
+          {{ form.hidden_tag() }}
+
+          <div class="form-group is-enter" id="group-forma" data-testid="group-forma">
+            <label for="forma_pagamento" class="sr-only">Forma de Pagamento</label>
+            {{ form.forma_pagamento(class="form-control", id="forma_pagamento", required=True) }}
+          </div>
+
+          <div class="form-group is-hidden" id="group-nome" data-testid="group-nome">
+            <label for="nome_pagador" class="sr-only">Nome do pagador</label>
+            {{ form.nome_pagador(class="form-control", id="nome_pagador", placeholder="Nome do pagador") }}
+          </div>
+
+          <div class="form-group is-hidden" id="group-cartao" data-testid="group-cartao">
+            <label for="numero_cartao" class="sr-only">Últimos 4 dígitos do cartão</label>
+            {{ form.numero_cartao(class="form-control", id="numero_cartao", maxlength="6", inputmode="numeric", pattern="[0-9]{4,6}", placeholder="Últimos 4 dígitos do cartão") }}
+          </div>
+
+          <div class="form-group is-hidden" id="group-valor" data-testid="group-valor">
+            <label for="valor" class="sr-only">Valor da recarga</label>
+            {{ form.valor(class="form-control", id="valor", type="text", inputmode="decimal", placeholder="Valor da recarga") }}
+          </div>
+
+          <div class="form-group is-hidden" id="group-submit" data-testid="group-submit">
+            {{ form.submit(class="btn", id="btnSubmit") }}
+          </div>
+        </form>
+      </div>
+
+      <!-- Loading -->
+      <div class="loading-container is-hidden" id="loadingContainer" role="status" aria-live="polite" data-testid="loading">
+        <div class="loading-dots">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        </div>
+        <p class="loading-text">Processando...</p>
+      </div>
+
+      <!-- Sucesso -->
+      <div class="success-container is-hidden" id="successContainer" role="status" aria-live="polite" data-testid="success">
+        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" aria-hidden="true">
+          <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+          <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+        </svg>
+        <p class="success-text">Recarga concluída!</p>
+      </div>
+
+      <!-- Erro -->
+      <div class="error-container is-hidden" id="errorContainer" role="alert" aria-live="assertive" data-testid="error">
+        <p class="error-title">Falha na recarga</p>
+        <p class="error-message" id="errorMessage">Ocorreu um erro inesperado.</p>
+      </div>
+    </div>
+  </main>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+</body>
+</html>
